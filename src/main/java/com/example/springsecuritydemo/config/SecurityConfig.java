@@ -2,6 +2,7 @@ package com.example.springsecuritydemo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
@@ -16,12 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
-        UserDetails admin = User.builder().username("admin").password(passwordEncoder.encode("adminPass")).build();
-        UserDetails user = User.builder().username("user").password(passwordEncoder.encode("userPass")).build();
+        UserDetails admin = User.builder().username("admin").password(passwordEncoder.encode("adminPass")).roles("ADMIN").build();
+        UserDetails user = User.builder().username("user").password(passwordEncoder.encode("userPass")).roles("USER").build();
 
         return new InMemoryUserDetailsManager(admin,user);
     }

@@ -23,11 +23,13 @@ public class AppController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Application> getAllApplications(){
         return applicationService.getAllApplications();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
     public Application getApplicationById(@PathVariable int id){
         return applicationService.getApplicationById(id);
     }
