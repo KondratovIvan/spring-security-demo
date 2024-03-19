@@ -3,6 +3,7 @@ package com.example.springsecuritydemo.controllers;
 import com.example.springsecuritydemo.model.Application;
 import com.example.springsecuritydemo.services.ApplicationService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class AppController {
         return applicationService.getAllApplications();
     }
 
-    @GetMapping(params = {"id"})
+    @GetMapping("/{id}")
     public Application getApplicationById(@PathVariable int id){
         return applicationService.getApplicationById(id);
     }
